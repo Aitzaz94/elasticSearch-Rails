@@ -73,3 +73,10 @@ group :test do
   gem "selenium-webdriver"
 
 end
+
+
+gem 'searchkick', '~> 5.3', '>= 5.3.1' #searchkick gem for Intelligent search - Elastic Search
+gem 'elasticsearch', '~> 8.11' #Ruby Elastic Search Integration
+gem 'faker', '~> 3.2', '>= 3.2.3' #To add fake data for populating
+
+gem 'foreman', '~> 0.87.2'
