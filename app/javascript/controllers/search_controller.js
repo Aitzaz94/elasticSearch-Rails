@@ -4,6 +4,12 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["input", "suggestions"];
   connect() {
+    console.log("Connected?");
+    document.addEventListener("click", (event) => {
+      if (!this.element.contains(event.target)) {
+        this.hideSuggestions();
+      }
+    });
   }
   suggestions() {
     const query = this.inputTarget.value;
@@ -13,7 +19,7 @@ export default class extends Controller {
 
     this.timeout = setTimeout(() => {
       this.requestSuggestions(query, url);
-    }, 250);
+    }, 500);
   }
 
   requestSuggestions(query, url) {
@@ -27,7 +33,7 @@ export default class extends Controller {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRF-Token": document.querySelector("meta[name= 'csrf-token']").conent
+        "X-CSRF-Token": document.querySelector("meta[name= 'csrf-token']").content
       },
       body: JSON.stringify({ query: query }),
     }).then(response => {
@@ -37,11 +43,18 @@ export default class extends Controller {
     });
   }
 
+  childClicked(event) {
+    this.childWasClicked = this.element.contains(event.target);
+  }
+
   showSuggestions() {
     this.suggestionsTarget.classList.remove("hidden");
   }
 
   hideSuggestions() {
-    this.suggestionsTarget.classList.add("hidden");
+    if(!this.childWasClicked){
+      this.suggestionsTarget.classList.add("hidden");
+    }
+    this.childWasClicked = false;
   }
 }
