@@ -80,3 +80,6 @@ gem 'elasticsearch', '~> 8.11' #Ruby Elastic Search Integration
 gem 'faker', '~> 3.2', '>= 3.2.3' #To add fake data for populating
 
 gem 'foreman', '~> 0.87.2'
+
+#debuuger
+gem 'byebug', '~> 11.1', '>= 11.1.3'
